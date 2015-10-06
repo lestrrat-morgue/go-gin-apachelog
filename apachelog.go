@@ -11,7 +11,11 @@ import (
 // New creates a new middleware that writes to `gin.DefaultWriter` and
 // uses go-apache-logformat's CombinedLog format
 func New() gin.HandlerFunc {
-	return NewWithWriterAndLogger(gin.DefaultWriter, al.CombinedLog.Clone())
+	return NewWithWriter(gin.DefaultWriter)
+}
+
+func NewWithWriter(out io.Writer) gin.HandlerFunc {
+	return NewWithWriterAndLogger(out, al.CombinedLog.Clone())
 }
 
 func NewWithWriterAndLogger(out io.Writer, logger *al.ApacheLog) gin.HandlerFunc {
